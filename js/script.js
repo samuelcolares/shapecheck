@@ -1,46 +1,62 @@
-const checkboxes = document.querySelectorAll('input[type=checkbox]')
-const grande = document.getElementById('grande')
-const natural = document.getElementById('natural')
-const seco = document.getElementById('seco')
-const img = document.querySelector('img')
+const Main = {
+    init: function () {
+        this.cacheSelectors();
+        this.bindEvents();
 
-checkboxes.forEach(boxes => {
-    boxes.addEventListener('change', (e) => {
-        teste(e.target)
-        boxes.nextElementSibling.nextElementSibling.classList.toggle('color')
-        boxes.nextElementSibling.style.backgroundColor = 'greenYellow'
-    })
-})
+    },
 
+    cacheSelectors: function () {
+        this.checkboxes = document.querySelectorAll('input[type=checkbox]')
+        this.grande = document.getElementById('grande')
+        this.natural = document.getElementById('natural')
+        this.seco = document.getElementById('seco')
+        this.img = document.querySelector('img')
+    },
 
-function teste(int) {
-    if (grande.checked && natural.checked && seco.checked) {
-        if (grande === int) {
-            natural.checked = false
-            natural.nextElementSibling.nextElementSibling.classList.remove('color')
+    bindEvents: function () {
+        this.checkboxes.forEach(boxes => {
+            boxes.addEventListener('change', (e) => {
+                this.Events.checkToggles.bind(this)(e.target)
+                boxes.nextElementSibling.nextElementSibling.classList.toggle('color')
+                boxes.nextElementSibling.style.backgroundColor = 'greenYellow'
+            })
+        })
+    },
+
+    Events: {
+        checkToggles: function (toggled) {
+            if (this.grande.checked && this.natural.checked && this.seco.checked) {
+                if (this.grande === toggled) {
+                    this.natural.checked = false
+                    this.natural.nextElementSibling.nextElementSibling.classList.remove('color')
+                }
+
+                if (this.natural === toggled) {
+                    this.seco.checked = false
+                    this.seco.nextElementSibling.nextElementSibling.classList.remove('color')
+                }
+
+                if (this.seco === toggled) {
+                    this.grande.checked = false
+                    this.grande.nextElementSibling.nextElementSibling.classList.remove('color')
+                }
+            }
+            if (this.grande.checked && this.natural.checked) {
+                this.img.src = 'img/togordo.png'
+            }
+            if (this.grande.checked && this.seco.checked) {
+                this.img.src = 'img/coleman.png'
+            }
+            if (this.natural.checked && this.seco.checked) {
+                this.img.src = 'img/haylan.png'
+            }
+
+            if (!this.grande.checked && !this.natural.checked && !this.seco.checked) {
+                this.img.src = ''
+            }
         }
+    },
 
-        if (natural === int) {
-            seco.checked = false
-            seco.nextElementSibling.nextElementSibling.classList.remove('color')
-        }
-
-        if (seco === int) {
-            grande.checked = false
-            grande.nextElementSibling.nextElementSibling.classList.remove('color')
-        }
-    }
-    if (grande.checked && natural.checked) {
-        img.src = 'img/togordo.png'    
-    }
-    if (grande.checked && seco.checked) {
-        img.src = 'img/coleman.png'    
-    }
-    if (natural.checked && seco.checked) {
-        img.src = 'img/haylan.png'    
-    }
-
-    if (!grande.checked && !natural.checked && !seco.checked){
-        img.src = ''  
-    }
 }
+
+Main.init();

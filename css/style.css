@@ -8,15 +8,20 @@
 
 body {
     font-family: "Roboto", sans-serif;
-    display: grid;
-    place-content: center;
+    display: flex;
+    flex-direction: column;
     height: 100vh;
     background-color: rgb(30, 105, 151);
     gap: 3rem;
 }
 h1{
+    margin: 0 auto;
+    margin-top: 5rem;
     text-align: center;
     color: white;
+    height: 240px;
+    display: flex;
+    align-items: flex-end;
 }
 h1 img{
     object-fit: cover;
